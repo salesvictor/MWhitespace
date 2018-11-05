@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef MWS_PARSER_H
+#define MWS_PARSER_H
 
 #include <string>
 
