@@ -1,3 +1,6 @@
+#ifndef PARSER_H
+#define PARSER_H
+
 #include <string>
 
 namespace mws {
@@ -12,3 +15,5 @@ namespace mws {
       const char* io_ins (std::string mins);
   };
 }
+
+#endif // PARSER_H
