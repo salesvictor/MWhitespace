@@ -1,98 +1,129 @@
 #include "assembler.h"
 
-namespace mws {
-  std::string Assembler::translate_tokeon(std::string token) {
-    // IMP
-    if (imp == "SM") {
-      return " ";
-    }
-    if (imp == "AM") {
-      return "\t ";
-    }
-    if (imp == "HA") {
-      return "\t\t";
-    }
-    if (imp == "FC") {
-      return "\n";
-    }
-    if (imp == "IO") {
-      return "\t\n";
-    }
+namespace mws
+{
+  namespace assembler
+  {
+    std::string translate_token(std::string token)
+    {
+      // IMP
+      if (token == "SM")
+      {
+        return " ";
+      }
+      if (token == "AM")
+      {
+        return "\t ";
+      }
+      if (token == "HA")
+      {
+        return "\t\t";
+      }
+      if (token == "FC")
+      {
+        return "\n";
+      }
+      if (token == "IO")
+      {
+        return "\t\n";
+      }
 
-    // SM Instrunctions
-    if (mins == "PUSH") {
-      return " ";
-    }
-    if (mins == "DUP") {
-      return "\n ";
-    }
-    if (mins == "SWP") {
-      return "\n\t";
-    }
-    if (mins == "POP") {
-      return "\n\n";
-    }
+      // SM Instrunctions
+      if (token == "PUSH")
+      {
+        return " ";
+      }
+      if (token == "DUP")
+      {
+        return "\n ";
+      }
+      if (token == "SWP")
+      {
+        return "\n\t";
+      }
+      if (token == "POP")
+      {
+        return "\n\n";
+      }
 
-    // AM Instrunctions
-    if (mins == "ADD") {
-      return " ";
-    }
-    if (mins == "SUB") {
-      return "\n ";
-    }
-    if (mins == "MUL") {
-      return "\n\t";
-    }
-    if (mins == "DIV") {
-      return "\n\n";
-    }
-    if (mins == "MOD") {
-      return "\t\t";
-    }
+      // AM Instrunctions
+      if (token == "ADD")
+      {
+        return " ";
+      }
+      if (token == "SUB")
+      {
+        return "\n ";
+      }
+      if (token == "MUL")
+      {
+        return "\n\t";
+      }
+      if (token == "DIV")
+      {
+        return "\n\n";
+      }
+      if (token == "MOD")
+      {
+        return "\t\t";
+      }
 
-    // HA Instrunctions
-    if (mins == "STR") {
-      return " ";
-    }
-    if (mins == "RTR") {
-      return "\t";
-    }
+      // HA Instrunctions
+      if (token == "STR")
+      {
+        return " ";
+      }
+      if (token == "RTR")
+      {
+        return "\t";
+      }
 
-    // FC Instrunctions
-    if (mins == "LABEL") {
-      return " ";
-    }
-    if (mins == "CALL") {
-      return "\n ";
-    }
-    if (mins == "JMP") {
-      return "\n\t";
-    }
-    if (mins == "BRNZ") {
-      return "\n\n";
-    }
-    if (mins == "RET") {
-      return "\t\t";
-    }
-    if (mins == "END") {
-      return "\n\n";
-    }
+      // FC Instrunctions
+      if (token == "LABEL")
+      {
+        return " ";
+      }
+      if (token == "CALL")
+      {
+        return "\n ";
+      }
+      if (token == "JMP")
+      {
+        return "\n\t";
+      }
+      if (token == "BRNZ")
+      {
+        return "\n\n";
+      }
+      if (token == "RET")
+      {
+        return "\t\t";
+      }
+      if (token == "END")
+      {
+        return "\n\n";
+      }
 
-    // IO Instrunctions
-    if (mins == "PUTC") {
-      return "  ";
-    }
-    if (mins == "PUTI") {
-      return " \t";
-    }
-    if (mins == "GETC") {
-      return "\t ";
-    }
-    if (mins == "GETI") {
-      return "\t\t";
-    }
+      // IO Instrunctions
+      if (token == "PUTC")
+      {
+        return "  ";
+      }
+      if (token == "PUTI")
+      {
+        return " \t";
+      }
+      if (token == "GETC")
+      {
+        return "\t ";
+      }
+      if (token == "GETI")
+      {
+        return "\t\t";
+      }
 
-    // Invalid Token
-    return "INVALID";
-  }
-}
+      // Invalid Token
+      return "INVALID";
+    }
+  } // namespace assembler
+} // namespace mws
