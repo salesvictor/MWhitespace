@@ -1,5 +1,5 @@
-set( TESTS_SRC test_assembler.cc )
+set( TESTS_SRC test_gtest.cc )
 
-add_executable( test_assembler test_assembler.cc )
-include_directories( ${CMAKE_SOURCE_DIR}/src )
-target_link_libraries( test_assembler mws gtest_main )
+add_executable( test_gtest test_gtest.cc )
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/src )
+target_link_libraries( test_gtest gtest_main )

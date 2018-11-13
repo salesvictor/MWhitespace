@@ -14,19 +14,30 @@ set( MWHITESPACES_VERSION "${MWHITESPACES_VERSION_MAJOR}.${MWHITESPACES_VERSION_
 add_subdirectory( src bin )
 add_subdirectory( tests tests )
 
-# Adding gtest as external project
-include( ExternalProject )
-set_directory_properties( PROPERTIES EP_PREFIX ${CMAKE_BINARY_DIR}/libs )
-ExternalProject_Add( googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG master
-  CMAKE_ARGS -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-             -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG:PATH=debug_libs
-             -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE:PATH=release_libs
-             -Dgtest_force_shared_crt=ON
-  INSTALL_COMMAND ""
-  LOG_DOWNLOAD ON
-  LOG_CONFIGURE ON
-  LOG_BUILD ON )
-ExternalProject_Get_Property( googletest SOURCE_DIR )
-include_directories( ${SOURCE_DIR}/include )
+# Download and unpack gtest at configure time
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/libs/CMakeLists.txt.in
+  ${CMAKE_CURRENT_BINARY_DIR}/libs/src/googletest-download/CMakeLists.txt )
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/src/googletest-download )
+if(result)
+  message(FATAL_ERROR "CMake step for googletest failed: ${result}")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/src/googletest-download )
+if(result)
+  message(FATAL_ERROR "Build step for googletest failed: ${result}")
+endif()
+
+# Prevent overriding the parent project's compiler/linker
+# settings on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Add googletest directly to our build. This defines
+# the gtest and gtest_main targets.
+add_subdirectory(
+  ${CMAKE_CURRENT_BINARY_DIR}/libs/src/googletest
+  ${CMAKE_CURRENT_BINARY_DIR}/libs/src/googletest-build
+  EXCLUDE_FROM_ALL )
