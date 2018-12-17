@@ -1,3 +1,1 @@
-set( SRC test_assembler.cc )
-
-add_executable( test_assembler ${SRC} )
+message(AUTHOR_WARNING "No tests to build D:")

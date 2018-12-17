@@ -1,6 +1,6 @@
-#ifndef MWS_H
-#define MWS_H
+#ifndef MWS_INCLUDE_MWS_MWS_H
+#define MWS_INCLUDE_MWS_MWS_H
 
-#include "assembler.h"
+#include "mws/version.h"
 
-#endif // MWS_H
+#endif // MWS_INCLUDE_MWS_MWS_H
