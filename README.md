@@ -2,11 +2,15 @@
 
 ## What's this?
 
-MWhitespace, which stands for (Mnemonic Whitespace), is a personal project that
-aims to construct an assembly-like language that gets assembled into a Whitespace
-source code. It will also include a compiler to run your Whitespace codes.
+MWhitespace, which stands for Mnemonic Whitespace, is a personal project that
+aims to construct an assembly-like language that gets assembled into a
+Whitespace source code. It will also include a compiler to run your Whitespace
+codes.
 
 ## Mnemonics
+
+On the following, T means top of the stack, A represents the first element and
+B represents the second.
 
 ### Instruction Modifier Parameters
 
@@ -29,20 +33,22 @@ pop | [Linefeed][Linefeed] | Pop the stack
 
 ### Arithmetic
 
+Be aware: The arithmetic instructions consumes the first two stack elements.
+
 MINS | INS | Description
 ---- | --- | -----------
-add | [Space] | A + B
-sub | [Linefeed][Space] | A - B
-mul | [Linefeed][Tab] | A * B
-div | [Linefeed][Linefeed] | A / B
-mod | [Tab][Tab] | A mod B
+add | [Space] | T = A + B
+sub | [Linefeed][Space] | T = A - B
+mul | [Linefeed][Tab] | T = A * B
+div | [Linefeed][Linefeed] | T = A / B
+mod | [Tab][Tab] | T = A mod B
 
 ### Heap Access
 
 MINS | INS | Description
 ---- | --- | -----------
-str | [Space] | Store 
-rtr | [Tab] | Retrieve
+str | [Space] | Heap[B] = A
+rtr | [Tab] | T = Heap[A]
 
 ### Flow Control
 
