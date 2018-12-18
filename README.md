@@ -26,7 +26,7 @@ io | [Tab][Linefeed] | I/O
 
 MINS | INS | Parameters | Description
 ---- | --- | ---------- | -----------
-push | [Space] | N | Push N into the stack
+push | [Space] | Number | Push Number into the stack
 dup | [Linefeed][Space] | - | Duplicate first stack element
 swp | [Linefeed][Tab] | - | Swap first and second stack elements
 pop | [Linefeed][Linefeed] | - | Pop the stack
