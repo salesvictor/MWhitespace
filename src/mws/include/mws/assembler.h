@@ -3,8 +3,8 @@
 
 #include <string>
 
-namespace mws{
-namespace assembler{
+namespace mws {
+namespace assembler {
 std::string substitute_token(std::string token);
 } // namespace assembler
 } // namespace mws
