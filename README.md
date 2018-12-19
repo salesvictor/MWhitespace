@@ -60,7 +60,7 @@ label | [Space][Space] | Label | Marks *Label* on the program
 call | [Space][Tab] | Label | Calls subroutine marked at *Label*
 jmp | [Space][Linefeed] | Label | Unconditional jump to *Label*
 jz | [Tab][Space] | Label | Jumps to *Label* if top stack element is zero
-js | [Tab][Tab] | Jumps to *Label* if top stack element is negative
+js | [Tab][Tab] | Label | Jumps to *Label* if top stack element is negative
 ret | [Tab][Linefeed] | - | End subroutine
 end | [Linefeed][Linefeed] | - | End the program
 
