@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
+set(MWS_ROOT ${CMAKE_CURRENT_BINARY_DIR})
+
 include(cmake/MWSVersion.cmake)
 project(
   MWhitespace
@@ -7,11 +9,7 @@ project(
   DESCRIPTION "Mnemonic Whitespace"
   LANGUAGES CXX)
 
-option(BUILD_MWS_TESTS "Build tests" OFF)
-option(BUILD_MWS_DEMOS "Build demos" OFF)
+option(BUILD_MWS_TESTS "Build mws tests" OFF)
+option(BUILD_MWS_DEMOS "Build mws demos" OFF)
 
-if(BUILD_MWS_TESTS)
-  include(${PROJECT_SOURCE_DIR}/cmake/GetGoogleTest.cmake)
-endif()
-
-add_subdirectory(src)
+add_subdirectory(mws tmp)

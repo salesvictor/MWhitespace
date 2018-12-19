@@ -1,5 +1,5 @@
 file(
-  STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/src/mws/include/mws/version.h" MWS_VERSION_PARTS
+  STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/mws/include/mws/version.h" MWS_VERSION_PARTS
   REGEX "#define MWS_VERSION_[A-Z]+[ ]+")
 
 string(

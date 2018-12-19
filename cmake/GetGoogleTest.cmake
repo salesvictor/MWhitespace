@@ -2,6 +2,8 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 include(FetchContent)
 
+set(FETCHCONTENT_BASE_DIR ${MWS_ROOT}/tmp/extern)
+
 FetchContent_Declare(
   googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
@@ -18,13 +20,13 @@ if(NOT googletest_POPULATED)
     EXCLUDE_FROM_ALL)
 endif()
 
-include(CTest)
 include(GoogleTest)
+enable_testing()
 
 macro(add_gtest TEST_NAME)
   add_executable(${TEST_NAME} ${TEST_NAME}.cc)
   target_link_libraries(${TEST_NAME}
-    PUBLIC gtest gtest_main gmock ${ARGN})
+    PRIVATE gtest gtest_main gmock ${ARGN})
   gtest_discover_tests(
     ${TEST_NAME}
     EXTRA_ARGS --gtest_color=yes
