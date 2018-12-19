@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 
 include(cmake/MWSVersion.cmake)
 project(
@@ -6,5 +6,8 @@ project(
   VERSION ${MWS_VERSION}
   DESCRIPTION "Mnemonic Whitespace"
   LANGUAGES CXX)
+
+include(CTest)
+enable_testing()
 
 add_subdirectory(src)
