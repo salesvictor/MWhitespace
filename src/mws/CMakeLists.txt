@@ -1,7 +1,8 @@
 message(STATUS "Configuring mws version: ${MWS_VERSION}")
 
 add_library(mws
-  src/assembler.cc)
+  src/assembler.cc
+  src/mws.cc)
 
 set_target_properties(mws PROPERTIES VERSION ${PROJECT_VERSION})
 target_include_directories(mws
@@ -17,14 +18,16 @@ target_compile_options(mws
 
 add_library(mws::mws ALIAS mws)
 
-if(BUILD_TESTS)
-  message(STATUS "Configuring unit tests")
+if(BUILD_MWS_TESTS)
+  message(STATUS "Configuring mws unit tests")
   add_subdirectory(test ${CMAKE_BINARY_DIR}/test)
-  message(STATUS "Configuring unit tests - done")
+  message(STATUS "Configuring mws unit tests - done")
 endif()
 
-if(BUILD_DEMOS)
-  message(STATUS "Configuring demos")
+if(BUILD_MWS_DEMOS)
+  message(STATUS "Configuring mws demos")
   add_subdirectory(demo ${CMAKE_BINARY_DIR}/demo)
-  message(STATUS "Configuring demos - done")
+  message(STATUS "Configuring mws demos - done")
 endif()
+
+message(STATUS "Configuring mws version: ${MWS_VERSION} - done")
