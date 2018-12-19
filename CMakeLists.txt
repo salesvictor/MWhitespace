@@ -7,7 +7,11 @@ project(
   DESCRIPTION "Mnemonic Whitespace"
   LANGUAGES CXX)
 
-include(CTest)
-enable_testing()
+option(BUILD_MWS_TESTS "Build tests" OFF)
+option(BUILD_MWS_DEMOS "Build demos" OFF)
+
+if(BUILD_MWS_TESTS)
+  include(${PROJECT_SOURCE_DIR}/cmake/GetGoogleTest.cmake)
+endif()
 
 add_subdirectory(src)
