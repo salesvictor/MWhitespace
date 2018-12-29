@@ -12,10 +12,27 @@ std::string SubstituteToken(const std::string &token) {
   std::transform(token.begin(), token.end(), out_token.begin(), ::tolower);
 
   if (mws::utils::IsNumber(token)) {
+    int num = std::stoi(token);
+    out_token = "";
+    if (num < 0) {
+      out_token += "\t";
+      num = -num;
+    } else {
+      out_token += " ";
+    }
+    while (num) {
+      if (num % 2) {
+        out_token += "\t";
+      } else {
+        out_token += " ";
+      }
+      num >>= 1;
+    }
+    std::reverse(out_token.begin()+1, out_token.end());
   }
 
   // IMP
-  if (out_token == "sm") {
+  else if (out_token == "sm") {
     out_token = " ";
   } else if (out_token == "am") {
     out_token = "\t ";

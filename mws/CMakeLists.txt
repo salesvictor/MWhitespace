@@ -1,7 +1,8 @@
 message(STATUS "Configuring mws version: ${MWS_VERSION}")
 
 add_library(mws
-  src/assembler.cc)
+  src/assembler.cc
+  src/utils.cc)
 
 set_target_properties(
   mws PROPERTIES

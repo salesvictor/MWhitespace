@@ -5,7 +5,7 @@
 #define EXPECT_TOKEN(token, ws_token) \
   EXPECT_EQ(mws::assembler::SubstituteToken(token), ws_token)
 
-TEST(SubstituteTokenTest, CheckIMPTokens) {
+TEST(SubstituteTokenTest, IMPTokens) {
   EXPECT_TOKEN("sm", " ");
   EXPECT_TOKEN("am", "\t ");
   EXPECT_TOKEN("ha", "\t\t");
@@ -13,7 +13,7 @@ TEST(SubstituteTokenTest, CheckIMPTokens) {
   EXPECT_TOKEN("io", "\t\n");
 }
 
-TEST(SubstituteTokenTest, CheckSMTokens) {
+TEST(SubstituteTokenTest, SMTokens) {
   EXPECT_TOKEN("push", " ");
   EXPECT_TOKEN("dup", "\n ");
   EXPECT_TOKEN("cp", "\t ");
@@ -22,7 +22,7 @@ TEST(SubstituteTokenTest, CheckSMTokens) {
   EXPECT_TOKEN("slide", "\t\n");
 }
 
-TEST(SubstituteTokenTest, CheckAMTokens) {
+TEST(SubstituteTokenTest, AMTokens) {
   EXPECT_TOKEN("add", "  ");
   EXPECT_TOKEN("sub", " \t");
   EXPECT_TOKEN("mul", " \n");
@@ -30,12 +30,12 @@ TEST(SubstituteTokenTest, CheckAMTokens) {
   EXPECT_TOKEN("mod", "\t\t");
 }
 
-TEST(SubstituteTokenTest, CheckHATokens) {
+TEST(SubstituteTokenTest, HATokens) {
   EXPECT_TOKEN("str", " ");
   EXPECT_TOKEN("rtr", "\t");
 }
 
-TEST(SubstituteTokenTest, CheckFCTokens) {
+TEST(SubstituteTokenTest, FCTokens) {
   EXPECT_TOKEN("label", "  ");
   EXPECT_TOKEN("call", " \t");
   EXPECT_TOKEN("jmp", " \n");
@@ -45,20 +45,29 @@ TEST(SubstituteTokenTest, CheckFCTokens) {
   EXPECT_TOKEN("end", "\n\n");
 }
 
-TEST(SubstituteTokenTest, CheckIOTokens) {
+TEST(SubstituteTokenTest, IOTokens) {
   EXPECT_TOKEN("out", " \t");
   EXPECT_TOKEN("outc", "  ");
   EXPECT_TOKEN("in", "\t\t");
   EXPECT_TOKEN("inc", "\t ");
 }
 
-TEST(SubstituteTokenTest, CheckInvalidTokens) {
+TEST(SubstituteTokenTest, Numbers) {
+  EXPECT_TOKEN("1", " \t");
+  EXPECT_TOKEN("2", " \t ");
+  EXPECT_TOKEN("3", " \t\t");
+  EXPECT_TOKEN("8", " \t   ");
+  EXPECT_TOKEN("-1", "\t\t");
+  EXPECT_TOKEN("-11", "\t\t \t\t");
+}
+
+TEST(SubstituteTokenTest, InvalidTokens) {
   EXPECT_TOKEN("invalid", "invalid");
   EXPECT_TOKEN("oaskdm", "invalid");
   EXPECT_TOKEN(" ", "invalid");
 }
 
-TEST(AssembleProgramTest, CheckMultiTokenWrongProgram) {
+TEST(AssembleProgramTest, MultiTokenWrongProgram) {
   std::stringstream program("dup dup jz\nout outc in");
   std::stringstream out_program;
   mws::assembler::AssembleProgram(program, out_program);
@@ -66,10 +75,10 @@ TEST(AssembleProgramTest, CheckMultiTokenWrongProgram) {
   EXPECT_EQ(out_program.str(), "\n \n \t  \t  \t\t");
 }
 
-TEST(AssembleProgramTest, CheckMultiTokenProgram) {
+TEST(AssembleProgramTest, MultiTokenProgram) {
   std::stringstream program("push 123456\nout");
   std::stringstream out_program;
   mws::assembler::AssembleProgram(program, out_program);
 
-  EXPECT_EQ(out_program.str(), " \t\t\t\t   \t  \t       \t");
+  EXPECT_EQ(out_program.str(), "  \t\t\t\t   \t  \t       \t");
 }
