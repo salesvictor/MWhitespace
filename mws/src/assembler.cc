@@ -1,12 +1,18 @@
 #include "mws/assembler.h"
 
 #include <algorithm>
+#include <iostream>
+
+#include "mws/utils.h"
 
 namespace mws {
 namespace assembler {
 std::string SubstituteToken(const std::string &token) {
   std::string out_token = token;
   std::transform(token.begin(), token.end(), out_token.begin(), ::tolower);
+
+  if (mws::utils::IsNumber(token)) {
+  }
 
   // IMP
   if (out_token == "sm") {
@@ -90,6 +96,13 @@ std::string SubstituteToken(const std::string &token) {
   }
 
   return out_token;
+}
+
+void AssembleProgram(std::istream &program, std::ostream &out_program) {
+  std::string token;
+  while (program >> token) {
+    out_program << SubstituteToken(token);
+  }
 }
 } // namespace assembler
 } // namespace mws

@@ -5,7 +5,7 @@
 #define EXPECT_TOKEN(token, ws_token) \
   EXPECT_EQ(mws::assembler::SubstituteToken(token), ws_token)
 
-TEST(AssemblerTest, CheckIMPTokens) {
+TEST(SubstituteTokenTest, CheckIMPTokens) {
   EXPECT_TOKEN("sm", " ");
   EXPECT_TOKEN("am", "\t ");
   EXPECT_TOKEN("ha", "\t\t");
@@ -13,7 +13,7 @@ TEST(AssemblerTest, CheckIMPTokens) {
   EXPECT_TOKEN("io", "\t\n");
 }
 
-TEST(AssemblerTest, CheckSMTokens) {
+TEST(SubstituteTokenTest, CheckSMTokens) {
   EXPECT_TOKEN("push", " ");
   EXPECT_TOKEN("dup", "\n ");
   EXPECT_TOKEN("cp", "\t ");
@@ -22,7 +22,7 @@ TEST(AssemblerTest, CheckSMTokens) {
   EXPECT_TOKEN("slide", "\t\n");
 }
 
-TEST(AssemblerTest, CheckAMTokens) {
+TEST(SubstituteTokenTest, CheckAMTokens) {
   EXPECT_TOKEN("add", "  ");
   EXPECT_TOKEN("sub", " \t");
   EXPECT_TOKEN("mul", " \n");
@@ -30,12 +30,12 @@ TEST(AssemblerTest, CheckAMTokens) {
   EXPECT_TOKEN("mod", "\t\t");
 }
 
-TEST(AssemblerTest, CheckHATokens) {
+TEST(SubstituteTokenTest, CheckHATokens) {
   EXPECT_TOKEN("str", " ");
   EXPECT_TOKEN("rtr", "\t");
 }
 
-TEST(AssemblerTest, CheckFCTokens) {
+TEST(SubstituteTokenTest, CheckFCTokens) {
   EXPECT_TOKEN("label", "  ");
   EXPECT_TOKEN("call", " \t");
   EXPECT_TOKEN("jmp", " \n");
@@ -45,15 +45,31 @@ TEST(AssemblerTest, CheckFCTokens) {
   EXPECT_TOKEN("end", "\n\n");
 }
 
-TEST(AssemblerTest, CheckIOTokens) {
+TEST(SubstituteTokenTest, CheckIOTokens) {
   EXPECT_TOKEN("out", " \t");
   EXPECT_TOKEN("outc", "  ");
   EXPECT_TOKEN("in", "\t\t");
   EXPECT_TOKEN("inc", "\t ");
 }
 
-TEST(AssemblerTest, CheckInvalidTokens) {
+TEST(SubstituteTokenTest, CheckInvalidTokens) {
   EXPECT_TOKEN("invalid", "invalid");
   EXPECT_TOKEN("oaskdm", "invalid");
   EXPECT_TOKEN(" ", "invalid");
+}
+
+TEST(AssembleProgramTest, CheckMultiTokenWrongProgram) {
+  std::stringstream program("dup dup jz\nout outc in");
+  std::stringstream out_program;
+  mws::assembler::AssembleProgram(program, out_program);
+
+  EXPECT_EQ(out_program.str(), "\n \n \t  \t  \t\t");
+}
+
+TEST(AssembleProgramTest, CheckMultiTokenProgram) {
+  std::stringstream program("push 123456\nout");
+  std::stringstream out_program;
+  mws::assembler::AssembleProgram(program, out_program);
+
+  EXPECT_EQ(out_program.str(), " \t\t\t\t   \t  \t       \t");
 }
