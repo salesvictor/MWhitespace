@@ -5,7 +5,7 @@
 #define EXPECT_TOKEN(token, ws_token) \
   EXPECT_EQ(mws::assembler::SubstituteToken(token), ws_token)
 
-TEST(SubstituteTokenTest, IMPTokens) {
+TEST(SubstituteTokenTest, IMPTokensLower) {
   EXPECT_TOKEN("sm", " ");
   EXPECT_TOKEN("am", "\t ");
   EXPECT_TOKEN("ha", "\t\t");
@@ -13,7 +13,15 @@ TEST(SubstituteTokenTest, IMPTokens) {
   EXPECT_TOKEN("io", "\t\n");
 }
 
-TEST(SubstituteTokenTest, SMTokens) {
+TEST(SubstituteTokenTest, IMPTokensUpper) {
+  EXPECT_TOKEN("SM", " ");
+  EXPECT_TOKEN("AM", "\t ");
+  EXPECT_TOKEN("HA", "\t\t");
+  EXPECT_TOKEN("FC", "\n");
+  EXPECT_TOKEN("IO", "\t\n");
+}
+
+TEST(SubstituteTokenTest, SMTokensLower) {
   EXPECT_TOKEN("push", " ");
   EXPECT_TOKEN("dup", "\n ");
   EXPECT_TOKEN("cp", "\t ");
@@ -22,7 +30,16 @@ TEST(SubstituteTokenTest, SMTokens) {
   EXPECT_TOKEN("slide", "\t\n");
 }
 
-TEST(SubstituteTokenTest, AMTokens) {
+TEST(SubstituteTokenTest, SMTokensUpper) {
+  EXPECT_TOKEN("PUSH", " ");
+  EXPECT_TOKEN("DUP", "\n ");
+  EXPECT_TOKEN("CP", "\t ");
+  EXPECT_TOKEN("SWP", "\n\t");
+  EXPECT_TOKEN("POP", "\n\n");
+  EXPECT_TOKEN("SLIDE", "\t\n");
+}
+
+TEST(SubstituteTokenTest, AMTokensLower) {
   EXPECT_TOKEN("add", "  ");
   EXPECT_TOKEN("sub", " \t");
   EXPECT_TOKEN("mul", " \n");
@@ -30,12 +47,25 @@ TEST(SubstituteTokenTest, AMTokens) {
   EXPECT_TOKEN("mod", "\t\t");
 }
 
-TEST(SubstituteTokenTest, HATokens) {
+TEST(SubstituteTokenTest, AMTokensUpper) {
+  EXPECT_TOKEN("ADD", "  ");
+  EXPECT_TOKEN("SUB", " \t");
+  EXPECT_TOKEN("MUL", " \n");
+  EXPECT_TOKEN("DIV", "\t ");
+  EXPECT_TOKEN("MOD", "\t\t");
+}
+
+TEST(SubstituteTokenTest, HATokensLower) {
   EXPECT_TOKEN("str", " ");
   EXPECT_TOKEN("rtr", "\t");
 }
 
-TEST(SubstituteTokenTest, FCTokens) {
+TEST(SubstituteTokenTest, HATokensUpper) {
+  EXPECT_TOKEN("STR", " ");
+  EXPECT_TOKEN("RTR", "\t");
+}
+
+TEST(SubstituteTokenTest, FCTokensLower) {
   EXPECT_TOKEN("label", "  ");
   EXPECT_TOKEN("call", " \t");
   EXPECT_TOKEN("jmp", " \n");
@@ -45,12 +75,30 @@ TEST(SubstituteTokenTest, FCTokens) {
   EXPECT_TOKEN("end", "\n\n");
 }
 
-TEST(SubstituteTokenTest, IOTokens) {
+TEST(SubstituteTokenTest, FCTokensUpper) {
+  EXPECT_TOKEN("LABEL", "  ");
+  EXPECT_TOKEN("CALL", " \t");
+  EXPECT_TOKEN("JMP", " \n");
+  EXPECT_TOKEN("JZ", "\t ");
+  EXPECT_TOKEN("JS", "\t\t");
+  EXPECT_TOKEN("RET", "\t\n");
+  EXPECT_TOKEN("END", "\n\n");
+}
+
+TEST(SubstituteTokenTest, IOTokensLower) {
   EXPECT_TOKEN("out", " \t");
   EXPECT_TOKEN("outc", "  ");
   EXPECT_TOKEN("in", "\t\t");
   EXPECT_TOKEN("inc", "\t ");
 }
+
+TEST(SubstituteTokenTest, IOTokensUpper) {
+  EXPECT_TOKEN("OUT", " \t");
+  EXPECT_TOKEN("OUTC", "  ");
+  EXPECT_TOKEN("IN", "\t\t");
+  EXPECT_TOKEN("INC", "\t ");
+}
+
 
 TEST(SubstituteTokenTest, Numbers) {
   EXPECT_TOKEN("1", " \t");
