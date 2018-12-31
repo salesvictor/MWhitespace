@@ -115,7 +115,7 @@ TEST(SubstituteTokenTest, InvalidTokens) {
   EXPECT_TOKEN(" ", "invalid");
 }
 
-TEST(AssembleProgramTest, MultiTokenWrongProgram) {
+TEST(AssembleProgramTest, WrongProgram) {
   std::stringstream program("dup dup jz\nout outc in");
   std::stringstream out_program;
   mws::assembler::AssembleProgram(program, out_program);
@@ -123,7 +123,7 @@ TEST(AssembleProgramTest, MultiTokenWrongProgram) {
   EXPECT_EQ(out_program.str(), "\n \n \t  \t  \t\t");
 }
 
-TEST(AssembleProgramTest, MultiTokenProgram) {
+TEST(AssembleProgramTest, WorkingProgram) {
   std::stringstream program("push 123456\nout");
   std::stringstream out_program;
   mws::assembler::AssembleProgram(program, out_program);
