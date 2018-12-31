@@ -11,6 +11,7 @@ std::string SubstituteToken(const std::string &token) {
   std::string out_token = token;
   std::transform(token.begin(), token.end(), out_token.begin(), ::tolower);
 
+  // Number
   if (mws::utils::IsNumber(token)) {
     int num = std::stoi(token);
     out_token = "";
